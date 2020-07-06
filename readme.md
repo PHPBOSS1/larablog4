@@ -1,4 +1,40 @@
 Блог на ларавел
+{{--dd($categories);--}}
+@foreach ($categories as $category)
+
+    @if ($category->children->where('published', 1)->count())
+        <li class="dropdown" style="
+    padding: 25px;
+    font-size: 25px;
+    border: none;
+    cursor: pointer;">
+            <a href="{{url("/blog/category/$category->slug")}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                {{$category->title}} <span class="caret"></span>
+            </a>
+{{--            var_dump($category->children); die;--}}
+
+            {{--            dd($category->children);--}}
+            <ul class="dropdown-menu" role="menu" >
+                @include('layouts.top_menu',                 ['categories' =>   $category->children])
+            </ul>
+{{--            <style type="text/css">--}}
+{{--                H1 {--}}
+{{--                    font-size: 120%; /* Размер шрифта */--}}
+{{--                    font-family: Verdana, Arial, Helvetica, sans-serif; /* Семейство шрифта */--}}
+{{--                    color: #336; /* Цвет текста */--}}
+{{--                }--}}
+{{--            </style>--}}
+    @else
+        <li>
+            <a href="{{url("/blog/category/$category->slug")}}">{{$category->title}}</a>
+            @endif
+        </li>
+        @endforeach
+
+
+
+
+
 
 
 
